@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý Người dùng - Hệ thống Quản lý Bán hàng</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../assets/css/pharmacy-theme.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html">
+          <i class="bi bi-shop"></i> Quản lý Bán hàng
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">
+                <i class="bi bi-house-door"></i> Trang chủ
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="sanpham.html">
+                <i class="bi bi-box-seam"></i> Sản phẩm
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="danhmuc.html">
+                <i class="bi bi-grid-3x3-gap"></i> Danh mục
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="nhanvien.html">
+                <i class="bi bi-people"></i> Nhân viên
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="donhang.html">
+                <i class="bi bi-cart"></i> Đơn hàng
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="thongke.html">
+                <i class="bi bi-graph-up"></i> Thống kê
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="nguoidung.html">
+                <i class="bi bi-person-gear"></i> Người dùng
+              </a>
+            </li>
+            <li class="nav-item" id="authNav">
+              <!-- Will be populated by JavaScript -->
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid mt-4">
+      <div class="row mb-4">
+        <div class="col-12">
+          <h2><i class="bi bi-person-gear"></i> Quản lý Người dùng</h2>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="../index.html">Trang chủ</a>
+              </li>
+              <li class="breadcrumb-item active">Người dùng</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Filter and Search -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-search"></i>
+                </span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="searchInput"
+                  placeholder="Tìm kiếm theo tên, email..."
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <select class="form-select" id="filterRole">
+                <option value="">Tất cả vai trò</option>
+                <option value="admin">Quản trị viên</option>
+                <option value="nhanvien">Nhân viên</option>
+                <option value="khachhang">Khách hàng</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <select class="form-select" id="filterStatus">
+                <option value="">Tất cả trạng thái</option>
+                <option value="active">Đang hoạt động</option>
+                <option value="inactive">Đã khóa</option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <button
+                class="btn btn-primary w-100"
+                data-bs-toggle="modal"
+                data-bs-target="#userModal"
+                id="btnAddUser"
+              >
+                <i class="bi bi-plus-circle"></i> Thêm mới
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Users Table -->
+      <div class="card">
+        <div class="card-header bg-white">
+          <h5 class="mb-0">Danh sách người dùng</h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Mã ND</th>
+                  <th>Tên đăng nhập</th>
+                  <th>Họ tên</th>
+                  <th>Email</th>
+                  <th>Số điện thoại</th>
+                  <th>Vai trò</th>
+                  <th>Trạng thái</th>
+                  <th>Ngày tạo</th>
+                  <th>Lần cuối</th>
+                  <th>Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="usersTableBody">
+                <tr>
+                  <td colspan="10" class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Modal -->
+    <div class="modal fade" id="userModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">
+              <i class="bi bi-person-plus"></i> Thêm người dùng mới
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="userForm">
+              <input type="hidden" id="mand" name="mand" />
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="tendangnhap" class="form-label">
+                    Tên đăng nhập <span class="text-danger">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="tendangnhap"
+                    name="tendangnhap"
+                    required
+                  />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="hoten" class="form-label">
+                    Họ và tên <span class="text-danger">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="hoten"
+                    name="hoten"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="email" class="form-label">
+                    Email <span class="text-danger">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    required
+                  />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="sodienthoai" class="form-label"
+                    >Số điện thoại</label
+                  >
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="sodienthoai"
+                    name="sodienthoai"
+                  />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="vaitro" class="form-label">
+                    Vai trò <span class="text-danger">*</span>
+                  </label>
+                  <select
+                    class="form-select"
+                    id="vaitro"
+                    name="vaitro"
+                    required
+                  >
+                    <option value="khachhang">Khách hàng</option>
+                    <option value="nhanvien">Nhân viên</option>
+                    <option value="admin">Quản trị viên</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="trangthai" class="form-label">
+                    Trạng thái <span class="text-danger">*</span>
+                  </label>
+                  <select
+                    class="form-select"
+                    id="trangthai"
+                    name="trangthai"
+                    required
+                  >
+                    <option value="active">Đang hoạt động</option>
+                    <option value="inactive">Đã khóa</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mb-3" id="passwordGroup">
+                <label for="matkhau" class="form-label">
+                  Mật khẩu
+                  <span class="text-danger" id="passwordRequired">*</span>
+                </label>
+                <div class="input-group">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="matkhau"
+                    name="matkhau"
+                  />
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    id="togglePassword"
+                  >
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+                <small class="text-muted">
+                  <span id="passwordHelp">Tối thiểu 6 ký tự</span>
+                  <span id="passwordEditHelp" style="display: none"
+                    >Để trống nếu không muốn thay đổi</span
+                  >
+                </small>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              <i class="bi bi-x-circle"></i> Hủy
+            </button>
+            <button type="button" class="btn btn-primary" id="btnSaveUser">
+              <i class="bi bi-save"></i> Lưu
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/nguoidung.js"></script>
+  </body>
+</html>

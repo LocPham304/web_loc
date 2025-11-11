@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chỉnh sửa thông tin - Nhà Thuốc Nhân Tâm</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/pharmacy-theme.css" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+
+    <style>
+      .profile-card {
+        background-color: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .profile-header {
+        text-align: center;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #e5e7eb;
+        margin-bottom: 2rem;
+      }
+
+      .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 3rem;
+        color: white;
+      }
+
+      .badge-role {
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.875rem;
+        font-weight: 600;
+      }
+
+      .form-label {
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 0.5rem;
+      }
+
+      .info-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        background-color: #f9fafb;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+      }
+
+      .info-item i {
+        font-size: 1.5rem;
+        color: #667eea;
+        margin-right: 1rem;
+        width: 30px;
+        text-align: center;
+      }
+
+      .info-label {
+        font-size: 0.875rem;
+        color: #6b7280;
+        margin-bottom: 0.25rem;
+      }
+
+      .info-value {
+        font-weight: 600;
+        color: #111827;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <i class="bi bi-hospital"></i>
+          Nhà Thuốc Nhân Tâm
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">
+                <i class="bi bi-house-door"></i> Trang chủ
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="shop.html">
+                <i class="bi bi-shop"></i> Sản phẩm
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="donhang.html">
+                <i class="bi bi-box-seam"></i> Đơn hàng
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link position-relative" href="cart.html">
+                <i class="bi bi-cart3"></i> Giỏ hàng
+                <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                  id="cartCountNav"
+                  style="display: none"
+                >
+                  0
+                </span>
+              </a>
+            </li>
+            <li class="nav-item" id="adminMenu" style="display: none">
+              <a class="nav-link" href="admin-dashboard.html">
+                <i class="bi bi-gear"></i> Quản trị
+              </a>
+            </li>
+            <ul class="navbar-nav" id="authNav">
+              <!-- Will be populated by JavaScript -->
+            </ul>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="../index.html">Trang chủ</a></li>
+          <li class="breadcrumb-item active">Chỉnh sửa thông tin</li>
+        </ol>
+      </nav>
+
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <div class="profile-card">
+            <!-- Profile Header -->
+            <div class="profile-header">
+              <div class="profile-avatar">
+                <i class="bi bi-person-fill"></i>
+              </div>
+              <h3 id="profileName">Loading...</h3>
+              <span class="badge badge-role" id="profileRole"></span>
+            </div>
+
+            <!-- Profile Information (View Mode) -->
+            <div id="viewMode">
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <h5><i class="bi bi-info-circle me-2"></i>Thông tin cá nhân</h5>
+                <button class="btn btn-primary" onclick="switchToEditMode()">
+                  <i class="bi bi-pencil"></i> Chỉnh sửa
+                </button>
+              </div>
+
+              <div class="info-item">
+                <i class="bi bi-person-badge"></i>
+                <div class="flex-grow-1">
+                  <div class="info-label">Tên đăng nhập</div>
+                  <div class="info-value" id="viewUsername">-</div>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <i class="bi bi-person"></i>
+                <div class="flex-grow-1">
+                  <div class="info-label">Họ và tên</div>
+                  <div class="info-value" id="viewFullName">-</div>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <i class="bi bi-envelope"></i>
+                <div class="flex-grow-1">
+                  <div class="info-label">Email</div>
+                  <div class="info-value" id="viewEmail">-</div>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <i class="bi bi-telephone"></i>
+                <div class="flex-grow-1">
+                  <div class="info-label">Số điện thoại</div>
+                  <div class="info-value" id="viewPhone">-</div>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <i class="bi bi-geo-alt"></i>
+                <div class="flex-grow-1">
+                  <div class="info-label">Địa chỉ</div>
+                  <div class="info-value" id="viewAddress">-</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Profile Form (Edit Mode) -->
+            <div id="editMode" style="display: none">
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <h5><i class="bi bi-pencil me-2"></i>Chỉnh sửa thông tin</h5>
+                <button class="btn btn-secondary" onclick="switchToViewMode()">
+                  <i class="bi bi-x"></i> Hủy
+                </button>
+              </div>
+
+              <form id="profileForm">
+                <div class="mb-3">
+                  <label for="editFullName" class="form-label">
+                    <i class="bi bi-person"></i> Họ và tên
+                    <span class="text-danger">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="editFullName"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="editEmail" class="form-label">
+                    <i class="bi bi-envelope"></i> Email
+                    <span class="text-danger">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="editEmail"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="editPhone" class="form-label">
+                    <i class="bi bi-telephone"></i> Số điện thoại
+                  </label>
+                  <input type="tel" class="form-control" id="editPhone" />
+                </div>
+
+                <div class="mb-3">
+                  <label for="editAddress" class="form-label">
+                    <i class="bi bi-geo-alt"></i> Địa chỉ
+                  </label>
+                  <textarea
+                    class="form-control"
+                    id="editAddress"
+                    rows="3"
+                  ></textarea>
+                </div>
+
+                <hr class="my-4" />
+
+                <h6 class="mb-3">
+                  <i class="bi bi-lock me-2"></i>Đổi mật khẩu (Tùy chọn)
+                </h6>
+
+                <div class="mb-3">
+                  <label for="oldPassword" class="form-label">
+                    Mật khẩu hiện tại
+                  </label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="oldPassword"
+                    autocomplete="current-password"
+                  />
+                  <div class="form-text">
+                    Để trống nếu không muốn đổi mật khẩu
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="newPassword" class="form-label">
+                    Mật khẩu mới
+                  </label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="newPassword"
+                    autocomplete="new-password"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="confirmPassword" class="form-label">
+                    Xác nhận mật khẩu mới
+                  </label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="confirmPassword"
+                    autocomplete="new-password"
+                  />
+                </div>
+
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="bi bi-check-circle"></i> Lưu thay đổi
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 mb-4">
+            <h5><i class="bi bi-hospital"></i> Nhà Thuốc Nhân Tâm</h5>
+            <p>
+              Hệ thống nhà thuốc uy tín hàng đầu Việt Nam với hơn 200 chi nhánh
+              trên toàn quốc.
+            </p>
+            <div class="social-links">
+              <a href="#" class="me-3"><i class="bi bi-facebook"></i></a>
+              <a href="#" class="me-3"><i class="bi bi-youtube"></i></a>
+              <a href="#" class="me-3"><i class="bi bi-instagram"></i></a>
+              <a href="#"><i class="bi bi-tiktok"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-6 mb-4">
+            <h5>Danh mục</h5>
+            <ul>
+              <li><a href="shop.html">Thuốc không kê đơn</a></li>
+              <li><a href="shop.html">Vitamin & TPCN</a></li>
+              <li><a href="shop.html">Chăm sóc sức khỏe</a></li>
+              <li><a href="shop.html">Dược mỹ phẩm</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-2 col-6 mb-4">
+            <h5>Hỗ trợ</h5>
+            <ul>
+              <li><a href="#">Chính sách đổi trả</a></li>
+              <li><a href="#">Chính sách giao hàng</a></li>
+              <li><a href="#">Câu hỏi thường gặp</a></li>
+              <li><a href="#">Liên hệ</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-4 mb-4">
+            <h5>Liên hệ</h5>
+            <ul>
+              <li>
+                <i class="bi bi-geo-alt"></i> 123 Nguyễn Văn Linh, Q.7, TP.HCM
+              </li>
+              <li><i class="bi bi-telephone"></i> 1900 1234</li>
+              <li><i class="bi bi-envelope"></i> support@nhantam.vn</li>
+              <li><i class="bi bi-clock"></i> T2-CN: 7h00 - 22h00</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2024 Nhà Thuốc Nhân Tâm. Tất cả quyền được bảo lưu.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom Scripts -->
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/profile.js"></script>
+    <script src="../assets/js/scroll-to-top.js"></script>
+  </body>
+</html>

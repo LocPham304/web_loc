@@ -1,0 +1,626 @@
+{
+	"info": {
+		"_postman_id": "qlbh-system-2024",
+		"name": "Quản lý Bán hàng - API Collection",
+		"description": "Collection đầy đủ các API endpoints cho hệ thống quản lý bán hàng",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Sản phẩm (Products)",
+			"item": [
+				{
+					"name": "Lấy danh sách sản phẩm",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/sanpham.php?page=1&limit=10",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "sanpham.php"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Lấy sản phẩm theo ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/sanpham.php?masp=1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "sanpham.php"],
+							"query": [
+								{
+									"key": "masp",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Thêm sản phẩm mới",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tensp\": \"Thuốc test\",\n    \"giaban\": 50000,\n    \"giamgia\": 5000,\n    \"hinhsp\": \"test.jpg\",\n    \"congdung\": \"Công dụng test\",\n    \"xuatxu\": \"Việt Nam\",\n    \"cachdung\": \"Uống 2 lần/ngày\",\n    \"madm\": 1,\n    \"madv\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/sanpham.php",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "sanpham.php"]
+						}
+					}
+				},
+				{
+					"name": "Cập nhật sản phẩm",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"masp\": 1,\n    \"tensp\": \"Thuốc cập nhật\",\n    \"giaban\": 60000,\n    \"giamgia\": 5000,\n    \"hinhsp\": \"update.jpg\",\n    \"congdung\": \"Công dụng mới\",\n    \"xuatxu\": \"Việt Nam\",\n    \"cachdung\": \"Uống 3 lần/ngày\",\n    \"madm\": 1,\n    \"madv\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/sanpham.php",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "sanpham.php"]
+						}
+					}
+				},
+				{
+					"name": "Xóa sản phẩm",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/sanpham.php?masp=1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "sanpham.php"],
+							"query": [
+								{
+									"key": "masp",
+									"value": "1"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Danh mục (Categories)",
+			"item": [
+				{
+					"name": "Lấy tất cả danh mục",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/danhmuc.php",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "danhmuc.php"]
+						}
+					}
+				},
+				{
+					"name": "Lấy danh mục theo ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/danhmuc.php?madm=1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "danhmuc.php"],
+							"query": [
+								{
+									"key": "madm",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Thêm danh mục",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tendm\": \"Danh mục mới\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/danhmuc.php",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "danhmuc.php"]
+						}
+					}
+				},
+				{
+					"name": "Cập nhật danh mục",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"madm\": 1,\n    \"tendm\": \"Danh mục cập nhật\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/danhmuc.php",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "danhmuc.php"]
+						}
+					}
+				},
+				{
+					"name": "Xóa danh mục",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/danhmuc.php?madm=1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "danhmuc.php"],
+							"query": [
+								{
+									"key": "madm",
+									"value": "1"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Đơn vị tính (Units)",
+			"item": [
+				{
+					"name": "Lấy tất cả đơn vị tính",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/donvitinh.php",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "donvitinh.php"]
+						}
+					}
+				},
+				{
+					"name": "Thêm đơn vị tính",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tendv\": \"Lọ\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/donvitinh.php",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "donvitinh.php"]
+						}
+					}
+				},
+				{
+					"name": "Cập nhật đơn vị tính",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"madv\": 1,\n    \"tendv\": \"Hộp lớn\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/donvitinh.php",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "donvitinh.php"]
+						}
+					}
+				},
+				{
+					"name": "Xóa đơn vị tính",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/donvitinh.php?madv=1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "donvitinh.php"],
+							"query": [
+								{
+									"key": "madv",
+									"value": "1"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Nhân viên (Employees)",
+			"item": [
+				{
+					"name": "Lấy tất cả nhân viên",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/nhanvien.php",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "nhanvien.php"]
+						}
+					}
+				},
+				{
+					"name": "Lấy nhân viên theo ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/nhanvien.php?manv=1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "nhanvien.php"],
+							"query": [
+								{
+									"key": "manv",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Thêm nhân viên",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"hoten\": \"Nguyễn Văn Test\",\n    \"gt\": \"Nam\",\n    \"ns\": \"1995-01-15\",\n    \"ngayvl\": \"2024-01-01\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/nhanvien.php",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "nhanvien.php"]
+						}
+					}
+				},
+				{
+					"name": "Cập nhật nhân viên",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"manv\": 1,\n    \"hoten\": \"Nguyễn Văn Update\",\n    \"gt\": \"Nam\",\n    \"ns\": \"1995-01-15\",\n    \"ngayvl\": \"2024-01-01\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/nhanvien.php",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "nhanvien.php"]
+						}
+					}
+				},
+				{
+					"name": "Xóa nhân viên",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/nhanvien.php?manv=1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "nhanvien.php"],
+							"query": [
+								{
+									"key": "manv",
+									"value": "1"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Đơn hàng (Orders)",
+			"item": [
+				{
+					"name": "Lấy danh sách đơn hàng",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/donhang.php?page=1&limit=10",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "donhang.php"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Lấy đơn hàng chi tiết",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/donhang.php?sodh=1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "donhang.php"],
+							"query": [
+								{
+									"key": "sodh",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Tạo đơn hàng mới",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ngaylao\": \"2024-10-11 10:30:00\",\n    \"giamgia\": 10000,\n    \"manv\": 1,\n    \"chitiet\": [\n        {\n            \"masp\": 1,\n            \"sl\": 2,\n            \"gia\": 25000\n        },\n        {\n            \"masp\": 2,\n            \"sl\": 1,\n            \"gia\": 150000\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/donhang.php",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "donhang.php"]
+						}
+					}
+				},
+				{
+					"name": "Cập nhật đơn hàng",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"sodh\": 1,\n    \"giamgia\": 15000,\n    \"manv\": 2\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/donhang.php",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "donhang.php"]
+						}
+					}
+				},
+				{
+					"name": "Xóa đơn hàng",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/donhang.php?sodh=1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "donhang.php"],
+							"query": [
+								{
+									"key": "sodh",
+									"value": "1"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Thống kê (Statistics)",
+			"item": [
+				{
+					"name": "Thống kê tổng quan",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/thongke.php?type=overview",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "thongke.php"],
+							"query": [
+								{
+									"key": "type",
+									"value": "overview"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Top sản phẩm bán chạy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/thongke.php?type=sanpham_banchay&limit=10",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "thongke.php"],
+							"query": [
+								{
+									"key": "type",
+									"value": "sanpham_banchay"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Doanh thu theo tháng",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/thongke.php?type=doanhthu_thang&year=2024",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "thongke.php"],
+							"query": [
+								{
+									"key": "type",
+									"value": "doanhthu_thang"
+								},
+								{
+									"key": "year",
+									"value": "2024"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Sản phẩm theo danh mục",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/thongke.php?type=sanpham_danhmuc",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "thongke.php"],
+							"query": [
+								{
+									"key": "type",
+									"value": "sanpham_danhmuc"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Hiệu suất nhân viên",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/thongke.php?type=nhanvien_hieusuat",
+							"protocol": "http",
+							"host": ["localhost"],
+							"path": ["api", "thongke.php"],
+							"query": [
+								{
+									"key": "type",
+									"value": "nhanvien_hieusuat"
+								}
+							]
+						}
+					}
+				}
+			]
+		}
+	]
+}
+
+

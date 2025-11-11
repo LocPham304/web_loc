@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cửa hàng - Nhà Thuốc Nhân Tâm</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/pharmacy-theme.css" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+
+    <style>
+      /* Additional Shop Styles */
+      .filter-sidebar {
+        background-color: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 20px;
+      }
+
+      .filter-section {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .filter-section:last-child {
+        border-bottom: none;
+      }
+
+      .filter-section h6 {
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+      }
+
+      .filter-option {
+        padding: 0.5rem 0;
+        cursor: pointer;
+      }
+
+      .filter-option input[type="checkbox"] {
+        margin-right: 0.5rem;
+      }
+
+      .price-range-input {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .price-range-input input {
+        flex: 1;
+        padding: 0.5rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+      }
+
+      .products-header {
+        background-color: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .view-toggle {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .view-toggle button {
+        padding: 0.5rem 1rem;
+        border: 2px solid #e5e7eb;
+        background-color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .view-toggle button.active {
+        border-color: var(--primary-color);
+        background-color: var(--primary-light);
+        color: var(--primary-dark);
+      }
+
+      .breadcrumb-shop {
+        background-color: white;
+        padding: 1rem 0;
+        margin-bottom: 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-pharmacy">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <i class="bi bi-hospital"></i>
+          Nhà Thuốc Nhân Tâm
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">
+                <i class="bi bi-house-door"></i> Trang chủ
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="shop.html">
+                <i class="bi bi-grid"></i> Sản phẩm
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="my-orders.html">
+                <i class="bi bi-box-seam"></i> Đơn hàng
+              </a>
+            </li>
+
+            <!-- Admin Menu -->
+            <li class="nav-item dropdown" id="adminMenu" style="display: none">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+              >
+                <i class="bi bi-gear"></i> Quản lý
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item" href="sanpham.html"
+                    ><i class="bi bi-box-seam"></i> Sản phẩm</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="danhmuc.html"
+                    ><i class="bi bi-grid-3x3-gap"></i> Danh mục</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="nhanvien.html"
+                    ><i class="bi bi-people"></i> Nhân viên</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="donhang.html"
+                    ><i class="bi bi-cart"></i> Đơn hàng</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="thongke.html"
+                    ><i class="bi bi-graph-up"></i> Thống kê</a
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="nguoidung.html"
+                    ><i class="bi bi-person-gear"></i> Người dùng</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- Cart -->
+            <li class="nav-item">
+              <a class="nav-link position-relative" href="cart.html">
+                <button class="btn btn-cart">
+                  <i class="bi bi-cart3"></i> Giỏ hàng
+                  <span
+                    class="cart-badge"
+                    id="cartCountNav"
+                    style="display: none"
+                    >0</span
+                  >
+                </button>
+              </a>
+            </li>
+
+            <!-- Auth Navigation -->
+            <ul class="navbar-nav" id="authNav">
+              <li class="nav-item">
+                <a class="nav-link" href="../login.html">
+                  <i class="bi bi-box-arrow-in-right"></i> Đăng nhập
+                </a>
+              </li>
+            </ul>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-shop">
+      <div class="container">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+              <a href="../index.html">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Cửa hàng</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mb-5">
+      <div class="row">
+        <!-- Filter Sidebar -->
+        <div class="col-lg-3 col-md-4 mb-4">
+          <div class="filter-sidebar">
+            <h5 class="mb-3"><i class="bi bi-funnel"></i> Bộ lọc</h5>
+
+            <!-- Search Filter -->
+            <div class="filter-section">
+              <h6>Tìm kiếm</h6>
+              <input
+                type="text"
+                class="form-control"
+                id="searchInput"
+                placeholder="Tìm tên thuốc..."
+              />
+            </div>
+
+            <!-- Category Filter -->
+            <div class="filter-section">
+              <h6>Danh mục</h6>
+              <div id="categoryFilterList">
+                <!-- Categories will be loaded here -->
+              </div>
+            </div>
+
+            <!-- Price Filter -->
+            <div class="filter-section">
+              <h6>Khoảng giá</h6>
+              <div class="price-range-input">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="minPrice"
+                  placeholder="Từ"
+                />
+                <span>-</span>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="maxPrice"
+                  placeholder="Đến"
+                />
+              </div>
+            </div>
+
+            <!-- Status Filter -->
+            <div class="filter-section">
+              <h6>Trạng thái</h6>
+              <div class="filter-option">
+                <input type="checkbox" id="filterAvailable" checked />
+                <label for="filterAvailable">Còn hàng</label>
+              </div>
+              <div class="filter-option">
+                <input type="checkbox" id="filterDiscount" />
+                <label for="filterDiscount">Đang giảm giá</label>
+              </div>
+              <div class="filter-option">
+                <input type="checkbox" id="filterHot" />
+                <label for="filterHot">Sản phẩm hot</label>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-grid gap-2">
+              <button class="btn btn-primary" onclick="applyFilters()">
+                <i class="bi bi-check-circle"></i> Áp dụng
+              </button>
+              <button
+                class="btn btn-outline-secondary"
+                onclick="resetFilters()"
+              >
+                <i class="bi bi-arrow-clockwise"></i> Xóa bộ lọc
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Products Area -->
+        <div class="col-lg-9 col-md-8">
+          <!-- Products Header -->
+          <div class="products-header">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <h5 class="mb-0"><span id="productCount">0</span> sản phẩm</h5>
+              </div>
+              <div class="col-md-6 text-end">
+                <div
+                  class="d-flex justify-content-end align-items-center gap-3"
+                >
+                  <select class="form-select w-auto" id="sortBy">
+                    <option value="name_asc">Tên A-Z</option>
+                    <option value="name_desc">Tên Z-A</option>
+                    <option value="price_asc">Giá thấp → cao</option>
+                    <option value="price_desc">Giá cao → thấp</option>
+                    <option value="best_seller">Bán chạy nhất</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Products Grid -->
+          <div class="row g-3" id="productsContainer">
+            <div class="col-12 text-center py-5">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Đang tải...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pagination -->
+          <nav class="mt-4">
+            <ul class="pagination justify-content-center" id="pagination"></ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/shop.js"></script>
+    <script src="../assets/js/scroll-to-top.js"></script>
+  </body>
+</html>

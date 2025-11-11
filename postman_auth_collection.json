@@ -1,0 +1,301 @@
+{
+  "info": {
+    "name": "Authentication API - Lab 7-10",
+    "description": "API collection for authentication and user management",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tendangnhap\": \"admin\",\n  \"matkhau\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost/lab-7-10/api/auth.php?action=login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["lab-7-10", "api", "auth.php"],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "login"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tendangnhap\": \"testuser\",\n  \"matkhau\": \"password123\",\n  \"hoten\": \"Test User\",\n  \"email\": \"test@example.com\",\n  \"sodienthoai\": \"0901234567\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost/lab-7-10/api/auth.php?action=register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["lab-7-10", "api", "auth.php"],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "register"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Check Auth",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost/lab-7-10/api/auth.php?action=check",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["lab-7-10", "api", "auth.php"],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "check"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost/lab-7-10/api/auth.php?action=profile",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["lab-7-10", "api", "auth.php"],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "profile"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost/lab-7-10/api/auth.php?action=logout",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["lab-7-10", "api", "auth.php"],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "logout"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Management (Admin Only)",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost/lab-7-10/api/nguoidung.php?search=&vaitro=&trangthai=",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["lab-7-10", "api", "nguoidung.php"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": ""
+                },
+                {
+                  "key": "vaitro",
+                  "value": ""
+                },
+                {
+                  "key": "trangthai",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get User By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost/lab-7-10/api/nguoidung.php?mand=1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["lab-7-10", "api", "nguoidung.php"],
+              "query": [
+                {
+                  "key": "mand",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tendangnhap\": \"newuser\",\n  \"matkhau\": \"password123\",\n  \"hoten\": \"New User\",\n  \"email\": \"newuser@example.com\",\n  \"sodienthoai\": \"0901234568\",\n  \"vaitro\": \"khachhang\",\n  \"trangthai\": \"active\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost/lab-7-10/api/nguoidung.php",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["lab-7-10", "api", "nguoidung.php"]
+            }
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mand\": 4,\n  \"hoten\": \"Updated Name\",\n  \"email\": \"updated@example.com\",\n  \"sodienthoai\": \"0901111111\",\n  \"vaitro\": \"nhanvien\",\n  \"trangthai\": \"active\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost/lab-7-10/api/nguoidung.php",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["lab-7-10", "api", "nguoidung.php"]
+            }
+          }
+        },
+        {
+          "name": "Update User Password",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mand\": 4,\n  \"matkhau\": \"newpassword123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost/lab-7-10/api/nguoidung.php",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["lab-7-10", "api", "nguoidung.php"]
+            }
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost/lab-7-10/api/nguoidung.php?mand=4",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["lab-7-10", "api", "nguoidung.php"],
+              "query": [
+                {
+                  "key": "mand",
+                  "value": "4"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Filter Users by Role",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost/lab-7-10/api/nguoidung.php?vaitro=admin",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["lab-7-10", "api", "nguoidung.php"],
+              "query": [
+                {
+                  "key": "vaitro",
+                  "value": "admin"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost/lab-7-10/api/nguoidung.php?search=admin",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["lab-7-10", "api", "nguoidung.php"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "admin"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

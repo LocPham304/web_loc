@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Admin - Nhà Thuốc Nhân Tâm</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/pharmacy-theme.css" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+
+    <style>
+      .stats-card {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s;
+        height: 100%;
+      }
+
+      .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .stats-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        color: white;
+      }
+
+      .chart-card {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1.5rem;
+      }
+
+      .chart-container {
+        position: relative;
+        height: 300px;
+      }
+
+      .recent-orders {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .order-item {
+        padding: 1rem 0;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .order-item:last-child {
+        border-bottom: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-pharmacy">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <i class="bi bi-hospital"></i>
+          Nhà Thuốc Nhân Tâm - Admin
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle active"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+              >
+                <i class="bi bi-gear"></i> Quản lý
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item active" href="admin-dashboard.html"
+                    ><i class="bi bi-speedometer2"></i> Dashboard</a
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="sanpham.html"
+                    ><i class="bi bi-box-seam"></i> Sản phẩm</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="danhmuc.html"
+                    ><i class="bi bi-grid-3x3-gap"></i> Danh mục</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="donhang.html"
+                    ><i class="bi bi-cart"></i> Đơn hàng</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="nguoidung.html"
+                    ><i class="bi bi-person-gear"></i> Người dùng</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- User Menu -->
+            <ul class="navbar-nav" id="authNav">
+              <li class="nav-item">
+                <a class="nav-link" href="../login.html">
+                  <i class="bi bi-box-arrow-in-right"></i> Đăng nhập
+                </a>
+              </li>
+            </ul>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+      <!-- Page Header -->
+      <div class="row mb-4">
+        <div class="col-12">
+          <h3><i class="bi bi-speedometer2"></i> Dashboard Tổng Quan</h3>
+          <p class="text-muted">Thống kê tổng quan hệ thống nhà thuốc</p>
+        </div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="row g-3 mb-4">
+        <!-- Revenue Card -->
+        <div class="col-lg-3 col-md-6">
+          <div class="stats-card">
+            <div class="d-flex align-items-center">
+              <div
+                class="stats-icon"
+                style="background: linear-gradient(135deg, #10b981, #059669)"
+              >
+                <i class="bi bi-currency-dollar"></i>
+              </div>
+              <div class="ms-3 flex-grow-1">
+                <p class="text-muted small mb-1">Doanh Thu Tháng</p>
+                <h4 class="mb-0" id="monthRevenue">0₫</h4>
+                <small class="text-success"
+                  ><i class="bi bi-arrow-up"></i> +12.5%</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Orders Card -->
+        <div class="col-lg-3 col-md-6">
+          <div class="stats-card">
+            <div class="d-flex align-items-center">
+              <div
+                class="stats-icon"
+                style="background: linear-gradient(135deg, #3b82f6, #2563eb)"
+              >
+                <i class="bi bi-cart-check"></i>
+              </div>
+              <div class="ms-3 flex-grow-1">
+                <p class="text-muted small mb-1">Đơn Hàng</p>
+                <h4 class="mb-0" id="totalOrders">0</h4>
+                <small class="text-info"
+                  ><i class="bi bi-clock"></i> 3 đang chờ</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Products Card -->
+        <div class="col-lg-3 col-md-6">
+          <div class="stats-card">
+            <div class="d-flex align-items-center">
+              <div
+                class="stats-icon"
+                style="background: linear-gradient(135deg, #8b5cf6, #7c3aed)"
+              >
+                <i class="bi bi-box-seam"></i>
+              </div>
+              <div class="ms-3 flex-grow-1">
+                <p class="text-muted small mb-1">Sản Phẩm</p>
+                <h4 class="mb-0" id="totalProducts">0</h4>
+                <small class="text-warning"
+                  ><i class="bi bi-exclamation-triangle"></i> 2 hết hàng</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Customers Card -->
+        <div class="col-lg-3 col-md-6">
+          <div class="stats-card">
+            <div class="d-flex align-items-center">
+              <div
+                class="stats-icon"
+                style="background: linear-gradient(135deg, #f59e0b, #d97706)"
+              >
+                <i class="bi bi-people"></i>
+              </div>
+              <div class="ms-3 flex-grow-1">
+                <p class="text-muted small mb-1">Khách Hàng</p>
+                <h4 class="mb-0" id="totalCustomers">0</h4>
+                <small class="text-success"
+                  ><i class="bi bi-person-plus"></i> +5 mới</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="row">
+        <!-- Revenue Chart -->
+        <div class="col-lg-8">
+          <div class="chart-card">
+            <h5 class="mb-3">
+              <i class="bi bi-graph-up"></i> Doanh Thu 6 Tháng Gần Nhất
+            </h5>
+            <div class="chart-container">
+              <canvas id="revenueChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Top Products Chart -->
+          <div class="chart-card">
+            <h5 class="mb-3">
+              <i class="bi bi-trophy"></i> Top 5 Sản Phẩm Bán Chạy
+            </h5>
+            <div class="chart-container">
+              <canvas id="topProductsChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+          <!-- Category Pie Chart -->
+          <div class="chart-card">
+            <h5 class="mb-3">
+              <i class="bi bi-pie-chart"></i> Sản Phẩm Theo Danh Mục
+            </h5>
+            <div class="chart-container" style="height: 250px">
+              <canvas id="categoryChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Recent Orders -->
+          <div class="recent-orders">
+            <h5 class="mb-3">
+              <i class="bi bi-clock-history"></i> Đơn Hàng Gần Đây
+            </h5>
+            <div id="recentOrdersList">
+              <!-- Recent orders will be loaded here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/admin-dashboard.js"></script>
+  </body>
+</html>

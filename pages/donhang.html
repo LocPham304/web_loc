@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý Đơn hàng</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../assets/css/pharmacy-theme.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html">
+          <i class="bi bi-shop"></i> Quản lý Bán hàng
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">
+                <i class="bi bi-house-door"></i> Trang chủ
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="sanpham.html">
+                <i class="bi bi-box-seam"></i> Sản phẩm
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="danhmuc.html">
+                <i class="bi bi-grid-3x3-gap"></i> Danh mục
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="nhanvien.html">
+                <i class="bi bi-people"></i> Nhân viên
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="donhang.html">
+                <i class="bi bi-cart"></i> Đơn hàng
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="thongke.html">
+                <i class="bi bi-graph-up"></i> Thống kê
+              </a>
+            </li>
+            <li class="nav-item" id="adminNav" style="display: none">
+              <a class="nav-link" href="nguoidung.html">
+                <i class="bi bi-person-gear"></i> Người dùng
+              </a>
+            </li>
+            <li class="nav-item" id="authNav">
+              <!-- Will be populated by JavaScript -->
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid mt-4">
+      <div class="row mb-4">
+        <div class="col-12">
+          <h2><i class="bi bi-cart"></i> Quản lý Đơn hàng</h2>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-12 text-end">
+          <button
+            class="btn btn-success"
+            data-bs-toggle="modal"
+            data-bs-target="#orderModal"
+            onclick="openAddModal()"
+          >
+            <i class="bi bi-plus-circle"></i> Tạo đơn hàng
+          </button>
+        </div>
+      </div>
+
+      <!-- Orders Table -->
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead class="table-light">
+                <tr>
+                  <th>Số ĐH</th>
+                  <th>Ngày đặt</th>
+                  <th>Người nhận</th>
+                  <th>Tổng tiền</th>
+                  <th>Giảm giá</th>
+                  <th>Thanh toán</th>
+                  <th>Trạng thái</th>
+                  <th>Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody">
+                <tr>
+                  <td colspan="8" class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- Pagination -->
+          <nav>
+            <ul class="pagination justify-content-center" id="pagination"></ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Modal -->
+    <div class="modal fade" id="orderModal" tabindex="-1">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">Tạo đơn hàng</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="orderForm">
+              <input type="hidden" id="sodh" />
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">Nhân viên</label>
+                  <select class="form-select" id="manv"></select>
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">Ngày lập</label>
+                  <input
+                    type="datetime-local"
+                    class="form-control"
+                    id="ngaylao"
+                  />
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">Giảm giá (đ)</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="giamgia"
+                    value="0"
+                    min="0"
+                  />
+                </div>
+              </div>
+
+              <h6>Chi tiết đơn hàng</h6>
+              <div class="mb-2">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-primary"
+                  onclick="addOrderDetail()"
+                >
+                  <i class="bi bi-plus"></i> Thêm sản phẩm
+                </button>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-sm">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Sản phẩm</th>
+                      <th width="120">Số lượng</th>
+                      <th width="150">Giá</th>
+                      <th width="150">Thành tiền</th>
+                      <th width="80">Xóa</th>
+                    </tr>
+                  </thead>
+                  <tbody id="orderDetailsTable"></tbody>
+                  <tfoot>
+                    <tr class="table-light">
+                      <td colspan="3" class="text-end">
+                        <strong>Tổng tiền:</strong>
+                      </td>
+                      <td colspan="2"><strong id="totalAmount">0đ</strong></td>
+                    </tr>
+                    <tr class="table-light">
+                      <td colspan="3" class="text-end">
+                        <strong>Giảm giá:</strong>
+                      </td>
+                      <td colspan="2">
+                        <strong id="discountAmount">0đ</strong>
+                      </td>
+                    </tr>
+                    <tr class="table-light">
+                      <td colspan="3" class="text-end">
+                        <strong>Thanh toán:</strong>
+                      </td>
+                      <td colspan="2">
+                        <strong id="finalAmount" class="text-success"
+                          >0đ</strong
+                        >
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Đóng
+            </button>
+            <button type="button" class="btn btn-primary" onclick="saveOrder()">
+              Lưu
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Detail Modal -->
+    <div class="modal fade" id="orderDetailModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              Chi tiết đơn hàng #<span id="detailOrderId"></span>
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body" id="orderDetailContent">
+            <div class="text-center">
+              <div class="spinner-border text-primary" role="status"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/donhang.js"></script>
+  </body>
+</html>
